@@ -1,1 +1,4 @@
-web: uvicorn app:app --host 0.0.0.0 --port $PORT
+web: npm run start
+
+# Will be run after the build phase
+release: npm run migrate:deploy
