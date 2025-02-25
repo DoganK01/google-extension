@@ -38,6 +38,7 @@ class ResponseData(BaseModel):
 
 def extract_core_domain(url: str) -> str:
     pattern = re.compile(r"^(https?://[^/]+)")
+    url = str(url)
     match = pattern.match(url)
     if match:
         return match.group(1)
