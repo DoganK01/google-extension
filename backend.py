@@ -188,12 +188,14 @@ graph_builder.add_edge("tools", "chatbot")
 
 graph_builder.set_entry_point("connection")
 
-graph = graph_builder.compile(checkpointer=memory)
+config = {"configurable": {"thread_id": "1", "recursion_limit": 250}}
+
+graph = graph_builder.compile(checkpointer=memory, config=config)
 
 
 async def stream_graph_updates(input):
-    config = {"configurable": {"thread_id": "1", "recursion_limit": 250}}
-    async for event in graph.astream({"messages": input.message, "url": str(input.url), "iteration": 0}, config=config):
+    #config = {"configurable": {"thread_id": "1", "recursion_limit": 250}}
+    async for event in graph.astream({"messages": input.message, "url": str(input.url), "iteration": 0}):
             #print("\n\nPRINTINGGGGG EVENT : \n\n", event)
             if 'chatbot' in event and 'messages' in event['chatbot'] and event['chatbot']['messages']:
                 last_message_content  = event['chatbot']['messages'][-1].content
