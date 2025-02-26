@@ -3,3 +3,11 @@ uvicorn[standard]>=0.29.0
 requests>=2.31.0
 pydantic>=2.6.4
 python-dotenv>=1.0.1
+langchain
+openai
+langchain_openai
+langchain_community
+langchain_core
+langgraph
+psutil
+pydantic_settings
