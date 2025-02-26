@@ -165,7 +165,6 @@ async def extract_core_domain(state: State) -> str:
         url = str(state["url"])
         match = pattern.match(url)
         if match:
-            logger.info(f"Received message: '{data.message}' from domain: {core_domain}")
             return {"domain": match.group(1)}
         raise ValueError("Invalid URL provided")
     except Exception as e:
@@ -201,6 +200,7 @@ async def stream_graph_updates(input):
 @app.post("/generate", response_model=ResponseData)
 async def generate_response(data: RequestData) -> Any:
     try:
+        logger.info(f"Received message: '{data.message}' from domain: {data.url}")
         generated_answer = await stream_graph_updates(data)
     except Exception as e:
         logger.exception("Processing error")
