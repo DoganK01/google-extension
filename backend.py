@@ -155,6 +155,9 @@ class RequestData(BaseModel):
         if not value.strip():
             raise ValueError("Message cannot be empty")
         return value
+    @field_validator('url', mode="before")
+    def convert_url_to_string(cls, value: HttpUrl) -> str:
+        return str(value)  # Convert HttpUrl to str
 
 class ResponseData(BaseModel):
     answer: str
@@ -162,8 +165,8 @@ class ResponseData(BaseModel):
 async def extract_core_domain(state: State) -> str:
     try:
         pattern = re.compile(r"^(https?://[^/]+)")
-        url = str(state["url"])
-        match = pattern.match(url)
+        #url = str(state["url"])
+        match = pattern.match(state["url"])
         if match:
             return {"domain": match.group(1)}
         raise ValueError("Invalid URL provided")
