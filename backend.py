@@ -188,19 +188,16 @@ graph_builder.add_edge("tools", "chatbot")
 
 graph_builder.set_entry_point("connection")
 
-config = {"configurable": {"thread_id": "1", "recursion_limit": 250}}
-
-graph = graph_builder.compile(checkpointer=memory, config=config)
+graph = graph_builder.compile(checkpointer=memory)
 
 
 async def stream_graph_updates(input):
-    #config = {"configurable": {"thread_id": "1", "recursion_limit": 250}}
-    async for event in graph.astream({"messages": input.message, "url": str(input.url), "iteration": 0}):
-            #print("\n\nPRINTINGGGGG EVENT : \n\n", event)
+    config = {"configurable": {"thread_id": "1", "recursion_limit": 250}}
+    async for event in graph.astream({"messages": input.message, "url": str(input.url), "iteration": 0}, config):
             if 'chatbot' in event and 'messages' in event['chatbot'] and event['chatbot']['messages']:
                 last_message_content  = event['chatbot']['messages'][-1].content
-                return last_message_content
-                #print(json.dumps({"Last Message Content": last_message_content}, indent=4, ensure_ascii=False))
+                logger.info(last_message_content)
+    return last_message_content
 
 @app.post("/generate", response_model=ResponseData)
 async def generate_response(data: RequestData) -> Any:
