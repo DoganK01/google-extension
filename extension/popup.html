@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gorgeous Chatbot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="chat-wrapper">
+    <header class="chat-header">
+      <img src="icon16.png" class="chatbot-avatar" alt="Chatbot Avatar">
+      <h1>Chatbot</h1>
+    </header>
+    <div id="chat-container" class="chat-container"></div>
+    <div id="loading-bar-container">
+      <div id="loading-bar"></div>
+    </div>
+    <form id="chat-form" class="chat-form">
+      <input id="chat-input" type="text" placeholder="Type your message here..." autocomplete="off" required>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

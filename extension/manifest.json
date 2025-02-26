@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "Coupon Chatbot Extension",
+    "version": "1.0",
+    "description": "A beautiful, interactive chatbot extension that communicates with your Python backend.",
+    "permissions": [
+      "activeTab",
+      "tabs",
+      "storage"
+    ],
+    "host_permissions": [
+      "https://google-extension-production.up.railway.app/*"
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon16.png",
+        "48": "icon16.png",
+        "128": "icon16.png"
+      }
+    }
+  }
+  
