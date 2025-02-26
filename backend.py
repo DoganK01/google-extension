@@ -176,18 +176,16 @@ async def extract_core_domain(state: State) -> str:
         raise HTTPException(status_code=500, detail="Generation error")
 
 # Define graph structure
-graph_builder.add_node("connection", connection)
 graph_builder.add_node("chatbot", chatbot)
 graph_builder.add_node("extract_core_domain", extract_core_domain)
 graph_builder.add_node("tools", ToolNode(tools=[search_tool]))
 
-graph_builder.add_conditional_edges("connection", connection_checker, {"continue": "extract_core_domain", "back": "connection"})
 graph_builder.add_conditional_edges("chatbot", tools_condition)
 
 graph_builder.add_edge("extract_core_domain", "chatbot")
 graph_builder.add_edge("tools", "chatbot")
 
-graph_builder.set_entry_point("connection")
+graph_builder.set_entry_point("extract_core_domain")
 
 graph = graph_builder.compile(checkpointer=memory)
 
