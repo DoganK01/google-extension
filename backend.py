@@ -143,6 +143,7 @@ async def connection_checker(state: State) -> Literal["continue", "back"]:
     Returns:
         Literal["continue", "back"]: The next node to route to.
     """
+    logger.info(state["connection_checking"])
     return "continue" if state["connection_checking"] else "back"
 
 
@@ -192,7 +193,7 @@ graph = graph_builder.compile(checkpointer=memory)
 
 
 async def stream_graph_updates(input):
-    config =  {"thread_id": "1", "recursion_limit": 250}
+    config =  {"thread_id": "1", "recursion_limit": 1000}
     async for event in graph.astream({"messages": input.message, "url": str(input.url), "iteration": 0}, config):
             if 'chatbot' in event and 'messages' in event['chatbot'] and event['chatbot']['messages']:
                 last_message_content  = event['chatbot']['messages'][-1].content
