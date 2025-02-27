@@ -192,7 +192,7 @@ graph = graph_builder.compile(checkpointer=memory)
 
 async def stream_graph_updates(input):
     config =  {"thread_id": "1", "recursion_limit": 1000}
-    async for event in graph.astream({"messages": input.message, "url": str(input.url), "iteration": 0}, config):
+    async for event in graph.astream({"messages": " ", "url": str(input.url), "iteration": 0}, config):
             if 'chatbot' in event and 'messages' in event['chatbot'] and event['chatbot']['messages']:
                 last_message_content  = event['chatbot']['messages'][-1].content
                 logger.info(last_message_content)
