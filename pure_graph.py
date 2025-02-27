@@ -175,9 +175,9 @@ graph = graph_builder.compile(checkpointer=memory)
 
 #[{"role": "user", "content": user_input}]
 
-async def stream_graph_updates(user_input: str):
+async def stream_graph_updates():
     config = {"configurable": {"thread_id": "1"}}
-    async for event in graph.astream({"messages": user_input, "iteration": 0}, config):
+    async for event in graph.astream({"messages": " ", "iteration": 0}, config):
             if 'chatbot' in event and 'messages' in event['chatbot'] and event['chatbot']['messages']:
                 last_message_content  = event['chatbot']['messages'][-1].content
                 print(json.dumps({"Last Message Content": last_message_content}, indent=4, ensure_ascii=False))
@@ -191,10 +191,10 @@ if __name__ == '__main__':
                 print("Goodbye!")
                 break
 
-            asyncio.run(stream_graph_updates(user_input))
+            asyncio.run(stream_graph_updates())
         except:
             # fallback if input() is not available
             user_input = "Etsy"
             print("User: " + user_input)
-            asyncio.run(stream_graph_updates(user_input))
+            asyncio.run(stream_graph_updates())
             break
